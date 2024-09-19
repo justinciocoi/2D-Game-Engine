@@ -29,11 +29,13 @@ class Player(Character):
         # Handle horizontal movement
         if keys[pygame.K_a] and self.x >= 0:
             self.x -= self.current_vel
+            self.hurtbox.x -= self.current_vel
             if not self.is_attacking and not self.is_dash and self.is_grounded:
                 self.set_animation("run" if keys[pygame.K_LSHIFT] else "walk")
             self.facing_right = False
         elif keys[pygame.K_d] and self.x <= SCREEN_WIDTH - SPRITE_WIDTH:
             self.x += self.current_vel
+            self.hurtbox.x += self.current_vel
             if not self.is_attacking and not self.is_dash and self.is_grounded:
                 self.set_animation("run" if keys[pygame.K_LSHIFT] else "walk")
             self.facing_right = True

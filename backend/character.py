@@ -20,7 +20,7 @@ class Character:
         self.is_jump = False
         self.is_doubleJump = False
         self.hurtbox = pygame.Rect(self.x + PLAYER_HURTBOX_X_OFFSET_RIGHT, self.y + PLAYER_HURTBOX_Y_OFFSET, PLAYER_HURTBOX_WIDTH, PLAYER_HURTBOX_HEIGHT)
-        self.attack_hitbox = pygame.Surface((SPRITE_WIDTH // 3, SPRITE_HEIGHT // 9))
+        self.attack_hitbox = pygame.Rect(self.x + ATTACK_HITBOX_OFFSET_RIGHT, self.y + ATTACK_HITBOX_Y_OFFSET, SPRITE_WIDTH // 3, SPRITE_HEIGHT // 9)
         self.current_vel = VEL
 
     def set_animation(self, animation_name):
@@ -49,10 +49,16 @@ class Character:
                 self.image = self.animations[self.current_animation][self.animation_index]
             else:
                 self.image = pygame.transform.flip(self.animations[self.current_animation][self.animation_index], True, False)
-
+            
             self.animation_timer = 0
 
-            
+        if self.facing_right:
+            self.attack_hitbox = pygame.Rect(self.x + ATTACK_HITBOX_OFFSET_RIGHT, self.y + ATTACK_HITBOX_Y_OFFSET, SPRITE_WIDTH // 3, SPRITE_HEIGHT // 9)
+        else:
+            self.attack_hitbox = pygame.Rect(self.x + ATTACK_HITBOX_OFFSET_LEFT, self.y + ATTACK_HITBOX_Y_OFFSET, SPRITE_WIDTH // 3, SPRITE_HEIGHT // 9)
+
+        self.hurtbox = pygame.Rect(self.x + PLAYER_HURTBOX_X_OFFSET_RIGHT, self.y + PLAYER_HURTBOX_Y_OFFSET, PLAYER_HURTBOX_WIDTH, PLAYER_HURTBOX_HEIGHT)
+
         # Apply scaling
         self.image = pygame.transform.scale(self.image, (SPRITE_WIDTH, SPRITE_HEIGHT))
 
